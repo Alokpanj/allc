@@ -1,0 +1,192 @@
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Before;
+
+
+
+public class PropertyTaxTest{
+	
+	/* create necessary objects */
+	PropertyTax propertyTax ;
+	
+	
+	//PropertyTax
+	String taxID = "12345";
+	int taxYear = 2019;
+	Property property;
+	
+	//Property
+	PropertyOwner propertyOwner;
+	String propertyID = "12345";
+	String propertyCategory = "residential";
+	String propertyType = "Type1";
+	double propertyValue = 12000;
+	double propertyAreaInSqft = 1300;
+	
+	//PropertyOwner
+	String ownerName = "Rashika";
+	String address = "Betul";
+	String wardNumber = "420";
+	long mobileNumber = 9211420420l;
+	
+	@Before
+	public void setup(){
+		propertyOwner = new PropertyOwner(ownerName, address, wardNumber, mobileNumber);
+		property = new Property(propertyOwner, propertyID, propertyCategory, propertyType, propertyValue, propertyAreaInSqft);
+		propertyTax = new PropertyTax(taxID, property, taxYear);
+	}
+	
+	@Test
+	public void testcalculateTaxAmount() {
+		
+		assertEquals(1200, propertyTax.calculateTaxAmount(), 0.0001);
+	   //     Write code here
+	    
+		
+	}
+	
+	   
+	
+	
+	  
+		
+	
+
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
+
+//Write the annotation for test suite
+@RunWith(Suite.class)
+@SuiteClasses({ TaxUtilityTest.class, PropertyTaxTest.class })
+public class PropertyTaxTestSuite {
+
+	   
+	
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+import org.junit.Test;
+import org.junit.Assert;
+
+import static org.junit.Assert.assertEquals;
+
+import org.junit.After;
+import org.junit.Before;
+
+
+public class TaxUtilityTest {
+	
+/* Write the test methods for calculateTaxRate() method by passing various values for the parameters */
+
+/* Create necessary objects */
+	TaxUtility taxUtility;
+	@Before
+	public void setup(){
+		taxUtility = new TaxUtility();
+	}
+	@Test
+	public void testCalculateTaxRateForResidentialType1(){
+    
+          // write your code here
+		assertEquals(0.10, taxUtility.calculateTaxRate("residential", "Type1"), 0.00001);
+    }
+    
+	@Test
+    public void testCalculateTaxRateForResidentialType2(){
+    
+         // write your code here
+    	assertEquals(0.20, taxUtility.calculateTaxRate("residential", "Type2"), 0.00001);
+        
+    }
+    
+    @Test
+    public void testCalculateTaxRateForResidentialType3(){
+    
+         // write your code here
+    	assertEquals(0.30, taxUtility.calculateTaxRate("residential", "Type3"), 0.00001);
+    
+    }
+    
+    @Test
+    public void testCalculateTaxRateForCommercialType1(){
+    
+          // write your code here
+    	assertEquals(0.20, taxUtility.calculateTaxRate("commercial", "Type1"), 0.00001);
+    
+    }
+    
+   @Test
+    public void testCalculateTaxRateForCommercialType2(){
+    
+         // write your code here
+    	assertEquals(0.30, taxUtility.calculateTaxRate("commercial", "Type2"), 0.00001);
+    
+    }
+    
+   @Test
+    public void testCalculateTaxRateForIndustrialType1(){
+    
+          // write your code here  
+    	assertEquals(0.25, taxUtility.calculateTaxRate("industrial", "Type1"), 0.00001);
+    
+    }
+    
+   @Test
+    public void testCalculateTaxRateForIndustrialType2(){
+    
+          // write your code here
+    	assertEquals(0.30, taxUtility.calculateTaxRate("industrial", "Type2"), 0.00001);
+    
+    }
+    
+   @Test
+    public void testCalculateTaxRateForInvalidCategoryType1(){
+    
+          // write your code here
+    	assertEquals(0.0, taxUtility.calculateTaxRate("indus", "Type1"), 0.00001);
+    
+    }
+    
+   @Test
+    public void testCalculateTaxRateForResidentialInvalidType(){
+    
+          // write your code here
+    	assertEquals(0.0, taxUtility.calculateTaxRate("residential", "Type4"), 0.00001);
+    	
+       
+    }
+    
+   @Test
+    public void testCalculateTaxRateForCommercialInvalidType(){
+    
+          // write your code here
+    	assertEquals(0.0, taxUtility.calculateTaxRate("commercial", "Type3"), 0.00001);
+    
+    }
+    
+    
+   @Test
+    public void testCalculateTaxRateForIndustrialInvalidType(){
+    
+        // write your code here
+    	assertEquals(0.0, taxUtility.calculateTaxRate("industrial", "Type3"), 0.00001);
+    
+    }
+    
+    @After
+    public void reset(){
+    	taxUtility = null;
+    }
+    
+    
+    
+}
